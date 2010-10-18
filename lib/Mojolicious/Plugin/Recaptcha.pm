@@ -112,4 +112,4 @@ L<Mojolicious>, L<Mojolicious::Plugin>, L<Mojolicious::Lite>
 
 Copyright 2010 Dmitry Konstantinov. All right reserved.
 
-This program is free software; you can redistribute it and/or mo
+This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
