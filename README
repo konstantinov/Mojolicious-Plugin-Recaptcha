@@ -1,0 +1,44 @@
+NAME
+    Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious
+    framework
+
+VERSION
+    0.1
+
+SYNOPSIS
+       # Mojolicious::Lite
+       plugin recaptcha => { 
+          public_key  => '...', 
+          private_key => '...'
+       };
+   
+       # Mojolicious
+       $self->plugin(recaptcha => { 
+          public_key  => '...', 
+          private_key => '...'
+       });
+   
+       # template 
+       <form action="" method="post">
+          <%== recaptcha_html %>
+          <input type="submit" value="submit" name="submit" />
+       </form>
+   
+       # checking
+       if ($self->helper('recaptcha')) {
+          # all ok
+       }
+
+SUPPORT
+    *   Repository
+
+        <http://github.com/konstantinov/Mojolicious-Plugin-Recaptcha>
+
+SEE ALSO
+    Mojolicious, Mojolicious::Plugin, Mojolicious::Lite
+
+COPYRIGHT & LICENSE
+    Copyright 2010 Dmitry Konstantinov. All right reserved.
+
+    This program is free software; you can redistribute it and/or mo
+
