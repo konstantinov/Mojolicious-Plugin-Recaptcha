@@ -1,9 +1,10 @@
 package Mojolicious::Plugin::Recaptcha;
 
 use strict;
+use Mojo::ByteStream;
 
 use base 'Mojolicious::Plugin';
-our $VERSION = '0.1';
+our $VERSION = '0.11';
 
 sub register {
 	my ($self,$app,$conf) = @_;
@@ -12,8 +13,8 @@ sub register {
 		recaptcha_html => sub {
 			my $self = shift;
 			my ($error) = map { $_ ? "&error=$_" : "" } $self->stash('recaptcha_error');
-			return qq(
-			<script type="text/javascript"
+			return Mojo::ByteStream->new(<<HTML);
+  <script type="text/javascript"
      src="http://www.google.com/recaptcha/api/challenge?k=$conf->{public_key}$error">
   </script>
   <noscript>
@@ -24,7 +25,8 @@ sub register {
      <input type="hidden" name="recaptcha_response_field"
          value="manual_challenge">
   </noscript>
-			);
+HTML
+
 		},
 	);
 	$app->renderer->add_helper(
@@ -66,7 +68,7 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
 
 =head1 VERSION
 
-0.1
+0.11
 
 =head1 SYNOPSIS
 
@@ -84,7 +86,7 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
    
    # template 
    <form action="" method="post">
-      <%== recaptcha_html %>
+      <%= recaptcha_html %>
       <input type="submit" value="submit" name="submit" />
    </form>
    
