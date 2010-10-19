@@ -3,7 +3,7 @@ NAME
     framework
 
 VERSION
-    0.1
+    0.11
 
 SYNOPSIS
        # Mojolicious::Lite
@@ -20,7 +20,7 @@ SYNOPSIS
    
        # template 
        <form action="" method="post">
-          <%== recaptcha_html %>
+          <%= recaptcha_html %>
           <input type="submit" value="submit" name="submit" />
        </form>
    
