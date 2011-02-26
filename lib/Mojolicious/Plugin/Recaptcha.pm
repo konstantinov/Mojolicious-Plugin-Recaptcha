@@ -46,14 +46,14 @@ HTML
 					response   => $self->req->param('recaptcha_response_field')
 				},
 				sub {
-					my $content; $content = "$_" for $_[1]->res;
+					my $content = $_[1]->res->to_string;
 					$result = $content =~ /true/;
 					
 					$self->stash(recaptcha_error => $content =~ m{false\s*(.*)$}si)
 						unless $result
 					;
 				}
-			)->process;
+			)->start;
 			
 			$result;
 		}
