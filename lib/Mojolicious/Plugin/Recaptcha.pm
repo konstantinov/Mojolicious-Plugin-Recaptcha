@@ -68,7 +68,7 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
 
 =head1 VERSION
 
-0.11
+0.2
 
 =head1 SYNOPSIS
 
@@ -91,7 +91,7 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
    </form>
    
    # checking
-   if ($self->helper('recaptcha')) {
+   if ($self->recaptcha) {
       # all ok
    }
    
