@@ -3,7 +3,7 @@ NAME
     framework
 
 VERSION
-    0.3
+    0.31
 
 SYNOPSIS
        # Mojolicious::Lite
@@ -28,7 +28,7 @@ SYNOPSIS
    
        # checking blocking way
        $self->recaptcha;
-       if ($self->stash('recaptcha_error')) {
+       unless ($self->stash('recaptcha_error')) {
           # all ok
        }
    
