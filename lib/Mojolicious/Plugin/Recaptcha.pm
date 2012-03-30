@@ -2,24 +2,30 @@ package Mojolicious::Plugin::Recaptcha;
 
 use strict;
 use Mojo::ByteStream;
+use Mojo::JSON;
 
 use base 'Mojolicious::Plugin';
-our $VERSION = '0.31';
+our $VERSION = '0.4';
 
 sub register {
 	my ($self,$app,$conf) = @_;
 	
 	$conf->{'lang'} ||= 'en';
+	my $options = {
+		%$conf
+	};
 	
+	delete $options->{'private_key'};
+	delete $options->{'public_key'};
+	
+	my $r_options = Mojo::JSON->new()->encode($options);
 	$app->renderer->add_helper(
 		recaptcha_html => sub {
 			my $self = shift;
 			my ($error) = map { $_ ? "&error=$_" : "" } $self->stash('recaptcha_error');
 			return Mojo::ByteStream->new(<<HTML);
   <script type="text/javascript">
-var RecaptchaOptions = {
-   lang : '$conf->{lang}',
-};
+var RecaptchaOptions = $r_options;
 </script>
   <script type="text/javascript"
      src="http://www.google.com/recaptcha/api/challenge?k=$conf->{public_key}$error">
@@ -85,7 +91,7 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
 
 =head1 VERSION
 
-0.31
+0.4
 
 =head1 SYNOPSIS
 
@@ -93,14 +99,14 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
    plugin recaptcha => { 
       public_key  => '...', 
       private_key => '...',
-      lang        => 'ru' 
+      lang        => 'ru'
    };
    
    # Mojolicious
    $self->plugin(recaptcha => { 
       public_key  => '...', 
       private_key => '...',
-      lang        => 'ru'
+      lang        => 'ru',
    });
    
    # template 
@@ -150,6 +156,11 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
 
 =back
 
+=head1 Options
+
+Plugin support all recaptcha options: 
+L<https://developers.google.com/recaptcha/docs/customization>
+
 =head1 SUPPORT
 
 =over 4
@@ -176,6 +187,6 @@ Alexander Voronov
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2010-2011 Dmitry Konstantinov. All right reserved.
+Copyright 2010-2012 Dmitry Konstantinov. All right reserved.
 
 This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
