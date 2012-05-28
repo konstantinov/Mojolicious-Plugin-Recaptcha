@@ -3,7 +3,7 @@ NAME
     framework
 
 VERSION
-    0.4
+    0.5
 
 SYNOPSIS
        # Mojolicious::Lite
@@ -18,6 +18,7 @@ SYNOPSIS
           public_key  => '...', 
           private_key => '...',
           lang        => 'ru',
+          ssl         => 1, # uses https Google URLs
        });
    
        # template 
