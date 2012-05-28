@@ -4,3 +4,4 @@ MANIFEST			This list of files
 README
 Makefile.PL
 META.yml
+META.json

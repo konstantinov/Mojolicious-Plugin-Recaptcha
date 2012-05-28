@@ -94,7 +94,7 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
 
 =head1 VERSION
 
-0.4
+0.5
 
 =head1 SYNOPSIS
 
@@ -110,6 +110,7 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
       public_key  => '...', 
       private_key => '...',
       lang        => 'ru',
+      ssl         => 1, # uses https Google URLs
    });
    
    # template 
