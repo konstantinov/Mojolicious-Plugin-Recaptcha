@@ -187,6 +187,8 @@ Special thanks for help in development
 
 Alexander Voronov
 
+Tim Wilde
+
 =back
 
 =head1 COPYRIGHT & LICENSE
