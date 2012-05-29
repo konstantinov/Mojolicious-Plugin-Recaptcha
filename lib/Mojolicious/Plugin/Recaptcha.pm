@@ -5,7 +5,7 @@ use Mojo::ByteStream;
 use Mojo::JSON;
 
 use base 'Mojolicious::Plugin';
-our $VERSION = '0.4';
+our $VERSION = '0.5';
 
 sub register {
 	my ($self,$app,$conf) = @_;
@@ -17,6 +17,9 @@ sub register {
 	
 	delete $options->{'private_key'};
 	delete $options->{'public_key'};
+	delete $options->{'ssl'};
+	
+	my $scheme = ($conf->{'ssl'}) ? 'https' : 'http';
 	
 	my $r_options = Mojo::JSON->new()->encode($options);
 	$app->renderer->add_helper(
@@ -28,10 +31,10 @@ sub register {
 var RecaptchaOptions = $r_options;
 </script>
   <script type="text/javascript"
-     src="http://www.google.com/recaptcha/api/challenge?k=$conf->{public_key}$error">
+     src="$scheme://www.google.com/recaptcha/api/challenge?k=$conf->{public_key}$error">
   </script>
   <noscript>
-     <iframe src="http://www.google.com/recaptcha/api/noscript?k=$conf->{public_key}"
+     <iframe src="$scheme://www.google.com/recaptcha/api/noscript?k=$conf->{public_key}"
          height="300" width="500" frameborder="0"></iframe><br>
      <textarea name="recaptcha_challenge_field" rows="3" cols="40">
      </textarea>
@@ -91,7 +94,7 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
 
 =head1 VERSION
 
-0.4
+0.5
 
 =head1 SYNOPSIS
 
@@ -107,6 +110,7 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
       public_key  => '...', 
       private_key => '...',
       lang        => 'ru',
+      ssl         => 1, # uses https Google URLs
    });
    
    # template 
