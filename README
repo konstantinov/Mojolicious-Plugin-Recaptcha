@@ -3,7 +3,7 @@ NAME
     framework
 
 VERSION
-    0.6
+    0.61
 
 SYNOPSIS
        # Mojolicious::Lite
@@ -24,12 +24,6 @@ SYNOPSIS
        # template 
        <form action="" method="post">
           <%= recaptcha_html %>
-          <input type="submit" value="submit" name="submit" />
-       </form>
-
-       # set reCaptcha widget language from template
-       <form action="" method="post">
-          <%= recaptcha_html 'ru' %>
           <input type="submit" value="submit" name="submit" />
        </form>
    

@@ -5,7 +5,7 @@ use Mojo::ByteStream;
 use Mojo::JSON;
 
 use base 'Mojolicious::Plugin';
-our $VERSION = '0.6';
+our $VERSION = '0.61';
 
 sub register {
 	my ($self,$app,$conf) = @_;
@@ -97,7 +97,7 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
 
 =head1 VERSION
 
-0.6
+0.61
 
 =head1 SYNOPSIS
 
