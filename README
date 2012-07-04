@@ -26,6 +26,12 @@ SYNOPSIS
           <%= recaptcha_html %>
           <input type="submit" value="submit" name="submit" />
        </form>
+
+       # set reCaptcha widget language from template
+       <form action="" method="post">
+          <%= recaptcha_html 'ru' %>
+          <input type="submit" value="submit" name="submit" />
+       </form>
    
        # set reCaptcha widget language from template
        <form action="" method="post">
