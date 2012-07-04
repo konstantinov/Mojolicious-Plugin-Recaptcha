@@ -25,16 +25,19 @@ sub register {
 	$app->renderer->add_helper(
 		recaptcha_html => sub {
 			my $self = shift;
+
+			my $lang = shift;
+
 			my ($error) = map { $_ ? "&error=$_" : "" } $self->stash('recaptcha_error');
 			return Mojo::ByteStream->new(<<HTML);
   <script type="text/javascript">
 var RecaptchaOptions = $r_options;
 </script>
   <script type="text/javascript"
-     src="$scheme://www.google.com/recaptcha/api/challenge?k=$conf->{public_key}$error">
+     src="$scheme://www.google.com/recaptcha/api/challenge?hl=$lang&k=$conf->{public_key}$error">
   </script>
   <noscript>
-     <iframe src="$scheme://www.google.com/recaptcha/api/noscript?k=$conf->{public_key}"
+     <iframe src="$scheme://www.google.com/recaptcha/api/noscript?hl=$lang&k=$conf->{public_key}"
          height="300" width="500" frameborder="0"></iframe><br>
      <textarea name="recaptcha_challenge_field" rows="3" cols="40">
      </textarea>
