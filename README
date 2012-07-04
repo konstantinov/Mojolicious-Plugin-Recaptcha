@@ -3,7 +3,7 @@ NAME
     framework
 
 VERSION
-    0.5
+    0.6
 
 SYNOPSIS
        # Mojolicious::Lite
@@ -25,6 +25,12 @@ SYNOPSIS
        <form action="" method="post">
           <%= recaptcha_html %>
           <input type="submit" value="submit" name="submit" />
+       </form>
+   
+       # set reCaptcha widget language from template
+       <form action="" method="post">
+         <%= recaptcha_html 'ru' %>
+         <input type="submit" value="submit" name="submit" />
        </form>
    
        # checking blocking way
@@ -81,6 +87,8 @@ THANKS
       Alexander Voronov
 
       Tim Wilde
+
+      Sangre
 
 COPYRIGHT & LICENSE
     Copyright 2010-2012 Dmitry Konstantinov. All right reserved.

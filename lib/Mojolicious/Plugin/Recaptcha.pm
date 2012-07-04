@@ -5,7 +5,7 @@ use Mojo::ByteStream;
 use Mojo::JSON;
 
 use base 'Mojolicious::Plugin';
-our $VERSION = '0.5';
+our $VERSION = '0.6';
 
 sub register {
 	my ($self,$app,$conf) = @_;
@@ -94,7 +94,7 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
 
 =head1 VERSION
 
-0.5
+0.6
 
 =head1 SYNOPSIS
 
@@ -117,6 +117,12 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
    <form action="" method="post">
       <%= recaptcha_html %>
       <input type="submit" value="submit" name="submit" />
+   </form>
+   
+   # set reCaptcha widget language from template
+   <form action="" method="post">
+     <%= recaptcha_html 'ru' %>
+     <input type="submit" value="submit" name="submit" />
    </form>
    
    # checking blocking way
@@ -188,6 +194,8 @@ Special thanks for help in development
 Alexander Voronov
 
 Tim Wilde
+
+Sangre
 
 =back
 
