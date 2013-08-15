@@ -54,7 +54,7 @@ HTML
 			
 			my @post_data = (
 				'http://www.google.com/recaptcha/api/verify',
-				{ 
+				form => { 
 					privatekey => $conf->{'private_key'},
 					remoteip   => 
 						$self->req->headers->header('X-Real-IP')
