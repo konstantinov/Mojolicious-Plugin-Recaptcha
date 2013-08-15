@@ -76,12 +76,12 @@ HTML
 			};
 			
 			if ($cb) {
-				$self->ua->post_form(
+				$self->ua->post(
 					@post_data,
 					$callback,
 				);
 			} else {
-				my $tx = $self->ua->post_form(@post_data);
+				my $tx = $self->ua->post(@post_data);
 				
 				return $callback->('',$tx);
 			}
