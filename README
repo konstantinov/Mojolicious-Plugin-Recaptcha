@@ -7,44 +7,44 @@ VERSION
 
 SYNOPSIS
        # Mojolicious::Lite
-       plugin recaptcha => { 
-          public_key  => '...', 
+       plugin recaptcha => {
+          public_key  => '...',
           private_key => '...',
           lang        => 'ru'
        };
-   
+
        # Mojolicious
-       $self->plugin(recaptcha => { 
-          public_key  => '...', 
+       $self->plugin(recaptcha => {
+          public_key  => '...',
           private_key => '...',
           lang        => 'ru',
           ssl         => 1, # uses https Google URLs
        });
-   
-       # template 
+
+       # template
        <form action="" method="post">
           <%= recaptcha_html %>
           <input type="submit" value="submit" name="submit" />
        </form>
-   
+
        # set reCaptcha widget language from template
        <form action="" method="post">
          <%= recaptcha_html 'ru' %>
          <input type="submit" value="submit" name="submit" />
        </form>
-   
+
        # checking blocking way
        $self->recaptcha;
        unless ($self->stash('recaptcha_error')) {
           # all ok
        }
-   
+
        # checking non-blocking way
        $self->render_later;
        $self->recaptcha(sub {
           my $ok = shift;
           if ($ok) {
-       
+
           } else {
              warn $self->stash('recaptcha_error');
           }
@@ -89,6 +89,8 @@ THANKS
       Tim Wilde
 
       Sangre
+
+      Fayland Lam
 
 COPYRIGHT & LICENSE
     Copyright 2010-2012 Dmitry Konstantinov. All right reserved.
