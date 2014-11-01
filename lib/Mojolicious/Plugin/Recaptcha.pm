@@ -2,26 +2,26 @@ package Mojolicious::Plugin::Recaptcha;
 
 use strict;
 use Mojo::ByteStream;
-use Mojo::JSON;
+use Mojo::JSON qw/encode_json/;
 
 use base 'Mojolicious::Plugin';
 our $VERSION = '0.61';
 
 sub register {
 	my ($self,$app,$conf) = @_;
-	
+
 	$conf->{'lang'} ||= 'en';
 	my $options = {
 		%$conf
 	};
-	
+
 	delete $options->{'private_key'};
 	delete $options->{'public_key'};
 	delete $options->{'ssl'};
-	
+
 	my $scheme = ($conf->{'ssl'}) ? 'https' : 'http';
-	
-	my $r_options = Mojo::JSON->new()->encode($options);
+
+	my $r_options = encode_json($options);
 	$app->renderer->add_helper(
 		recaptcha_html => sub {
 			my $self = shift;
@@ -51,12 +51,12 @@ HTML
 	$app->renderer->add_helper(
 		recaptcha => sub {
 			my ($self,$cb) = @_;
-			
+
 			my @post_data = (
 				'http://www.google.com/recaptcha/api/verify',
-				form => { 
+				form => {
 					privatekey => $conf->{'private_key'},
-					remoteip   => 
+					remoteip   =>
 						$self->req->headers->header('X-Real-IP')
 						 ||
 						$self->tx->{remote_address},
@@ -67,14 +67,14 @@ HTML
 			my $callback = sub {
 				my $content = $_[1]->res->to_string;
 				my $result = $content =~ /true/;
-				
+
 				$self->stash(recaptcha_error => $content =~ m{false\s*(.*)$}si)
 					unless $result
 				;
 				$cb->($result) if $cb;
 				return $result;
 			};
-			
+
 			if ($cb) {
 				$self->ua->post(
 					@post_data,
@@ -82,7 +82,7 @@ HTML
 				);
 			} else {
 				my $tx = $self->ua->post(@post_data);
-				
+
 				return $callback->('',$tx);
 			}
 		}
@@ -102,44 +102,44 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
 =head1 SYNOPSIS
 
    # Mojolicious::Lite
-   plugin recaptcha => { 
-      public_key  => '...', 
+   plugin recaptcha => {
+      public_key  => '...',
       private_key => '...',
       lang        => 'ru'
    };
-   
+
    # Mojolicious
-   $self->plugin(recaptcha => { 
-      public_key  => '...', 
+   $self->plugin(recaptcha => {
+      public_key  => '...',
       private_key => '...',
       lang        => 'ru',
       ssl         => 1, # uses https Google URLs
    });
-   
-   # template 
+
+   # template
    <form action="" method="post">
       <%= recaptcha_html %>
       <input type="submit" value="submit" name="submit" />
    </form>
-   
+
    # set reCaptcha widget language from template
    <form action="" method="post">
      <%= recaptcha_html 'ru' %>
      <input type="submit" value="submit" name="submit" />
    </form>
-   
+
    # checking blocking way
    $self->recaptcha;
    unless ($self->stash('recaptcha_error')) {
       # all ok
    }
-   
+
    # checking non-blocking way
    $self->render_later;
    $self->recaptcha(sub {
       my $ok = shift;
       if ($ok) {
-       
+
       } else {
          warn $self->stash('recaptcha_error');
       }
@@ -171,7 +171,7 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
 
 =head1 Options
 
-Plugin support all recaptcha options: 
+Plugin support all recaptcha options:
 L<https://developers.google.com/recaptcha/docs/customization>
 
 =head1 SUPPORT
