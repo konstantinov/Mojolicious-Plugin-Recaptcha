@@ -4,8 +4,8 @@
 
 0.62 2013-12-16
 	[Documentation]
-		Setting the widget language from the template appears to have been
-		a bad idea.
+		No need to document setting the widget language from the template
+		twice in the README file.
 
 0.61 2012-07-04
 	[Bugfix]
