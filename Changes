@@ -1,0 +1,45 @@
+0.63 2015-12-10
+	[Dependencies]
+		Require a newer Mojolicious. Thanks to Fayland Lam!
+
+0.62 2013-12-16
+	[Documentation]
+		Setting the widget language from the template appears to have been
+		a bad idea.
+
+0.61 2012-07-04
+	[Bugfix]
+		Actually tell Google about the language we're using.
+
+0.6 2012-05-29
+	[Documentation]
+		Document setting reCaptcha widget language from template.
+		Thanks to Sangre!
+
+0.5 2012-05-29
+	[Feature]
+		Support for https:// URLs - thanks to Tim Wilde!
+
+0.4 2012-03-30
+	[Feature]
+		Pass on all Google Recaptcha configuration options.
+
+0.31 2011-11-24
+	[Documentation]
+		Logic fix.
+
+0.3 2011-10-04
+	[Feature]
+		Support for non-blocking mode.
+		Internationalisation.
+
+0.2 2011-02-26
+	[Tweak]
+		Minor tweaks.
+
+0.11 2010-10-19
+	[Tweak]
+		Use Mojo::Bytestream rather than hand-rolling HTML.
+
+0.1 2010-10-18
+		Initial version.
