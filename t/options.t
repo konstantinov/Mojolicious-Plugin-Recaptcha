@@ -1,6 +1,5 @@
 #!/usr/bin/env perl
-# Without any options specified, we can generate a recaptcha which links to
-# Google in English-language.
+# The various things we can specify in options appear to do something.
 
 use strict;
 use warnings;
