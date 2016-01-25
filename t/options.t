@@ -46,3 +46,31 @@ my $html_ssl = $mojolicious->recaptcha_html;
 my @matches_https = $html_ssl =~ m{https://www [.] google }gx;
 is (scalar @matches_https, 2,
     'If we specify the ssl option we get https:// URLs') or diag($html);
+
+# We can specify other arbitrary options that are passed on to Google,
+# albeit only if we use Javascript.
+ok(
+    $mojolicious->plugin(
+        recaptcha => {
+            %default_conf,
+            homage => 'Weebl',
+            chant  => [qw(Badger badger mushroom snake)]
+        }
+    ),
+    'We can specify rich options'
+);
+my $html_rich_conf = $mojolicious->recaptcha_html;
+# Don't assume anything about hash key ordering on modern Perls.
+like(
+    $html_rich_conf,
+    qr{ [{,] "homage": \s* "Weebl" \s* [,}] }xsm,
+    'Our simple scalar features in the JSON'
+);
+like(
+    $html_rich_conf,
+    qr{ [{,]
+        "chant": \s*
+        \[ "Badger" ,\s* "badger" ,\s* "mushroom" ,\s* "snake" ,? \] 
+        [,}]
+    }xsm
+);
