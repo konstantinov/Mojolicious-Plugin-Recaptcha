@@ -35,3 +35,4 @@ my $html = $mojolicious->recaptcha_html;
 ok($html, 'We got some HTML back');
 like($html, qr{ google [.] com /recaptcha .+ k= Public . key! }x,
     q{There's a link to Google which includes our public key});
+unlike($html, qr{Private . key!}, q{Our private key doesn't appear});
