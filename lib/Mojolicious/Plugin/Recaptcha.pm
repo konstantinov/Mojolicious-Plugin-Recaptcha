@@ -5,7 +5,7 @@ use Mojo::ByteStream;
 use Mojo::JSON qw/encode_json/;
 
 use base 'Mojolicious::Plugin';
-our $VERSION = '0.63';
+our $VERSION = '0.64';
 
 sub register {
 	my ($self,$app,$conf) = @_;
@@ -59,7 +59,7 @@ HTML
 					remoteip   =>
 						$self->req->headers->header('X-Real-IP')
 						 ||
-						$self->tx->{remote_address},
+						$self->tx->remote_address,
 					challenge  => $self->req->param('recaptcha_challenge_field'),
 					response   => $self->req->param('recaptcha_response_field')
 				}
@@ -97,7 +97,7 @@ Mojolicious::Plugin::Recaptcha - ReCaptcha plugin for Mojolicious framework
 
 =head1 VERSION
 
-0.63
+0.64
 
 =head1 SYNOPSIS
 
@@ -202,10 +202,12 @@ Sangre
 
 Fayland Lam
 
+BERENYI Mihaly
+
 =back
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2010-2012 Dmitry Konstantinov. All right reserved.
+Copyright 2010-2016 Dmitry Konstantinov. All right reserved.
 
 This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
